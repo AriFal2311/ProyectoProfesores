@@ -10,5 +10,6 @@
     <color name="back1">#FF333333</color>
     <color name="gris_oscuro">#38435D</color>
     <color name="gris_suave">#BCC1CD</color>
+    <color name="gris_agenda">#F6F6F5</color>
 
 </resources>
