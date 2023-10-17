@@ -65,7 +65,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         }
     }
 
-    // Método para mostrar los detalles de la fecha en el Activity
+    // Método para mostrar los detalles de las fechas en el Activity
     private void mostrarDetallesDeFecha(CalendarItem item) {
         // Actualiza los elementos de la vista principal en el Activity
         TextView numberCalendar = ((Activity) context).findViewById(R.id.number_calendar);
