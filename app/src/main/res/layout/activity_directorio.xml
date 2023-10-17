@@ -10,7 +10,7 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
-        android:id="@+id/calender_nav"
+        android:id="@+id/titulo_directorio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/recyclerViewCalendar"
@@ -81,7 +81,7 @@
             android:layout_marginEnd="293dp"
             android:layout_marginBottom="12dp"
             android:text="Contacts"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
