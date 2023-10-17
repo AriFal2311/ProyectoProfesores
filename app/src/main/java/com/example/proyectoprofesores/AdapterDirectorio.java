@@ -59,4 +59,5 @@ public class AdapterDirectorio extends BaseAdapter {
         TextViewPadre.setText(c.num_Padre);
         return view;
     }
+    //H
 }

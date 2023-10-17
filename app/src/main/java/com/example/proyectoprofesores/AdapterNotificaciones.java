@@ -54,5 +54,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter<AdapterNotificac
             textViewTituloNotificacion.setText(notificacion.getTitulo());
             textViewDescripcion.setText(notificacion.getNoti());
         }
+        //H
     }
 }

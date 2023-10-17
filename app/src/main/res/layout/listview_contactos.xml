@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/imageViewContacto"
-        android:layout_width="0dp"
+        android:layout_width="1dp"
         android:layout_height="80dp"
         android:layout_weight="20"
         android:padding="10dp"
@@ -28,7 +28,7 @@
                 android:gravity="center|left"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="Alumna Ariana Fuentes" />
+                android:text="Alumn@ Ariana Fuentes" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:gravity="center|left"
-                    android:text="Madre:"
+                    android:text="Madre: "
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -61,7 +61,7 @@
                     android:layout_weight="1"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:text="Padre:" />
+                    android:text="Padre: " />
 
                 <TextView
                     android:id="@+id/textViewNumeroPadre"

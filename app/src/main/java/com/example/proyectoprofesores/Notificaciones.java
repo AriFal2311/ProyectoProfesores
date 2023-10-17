@@ -8,7 +8,7 @@ public class Notificaciones {
         this.titulo = titulo;
         this.noti = noti;
     }
-
+//H
 
     public int image;
     public String titulo;

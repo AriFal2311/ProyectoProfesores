@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/imageViewNotificacion"
-        android:layout_width="0dp"
+        android:layout_width="1dp"
         android:layout_height="80dp"
         android:layout_weight="20"
         android:padding="10dp"
@@ -25,7 +25,7 @@
             android:layout_height="40dp"
             android:gravity="center|left"
             android:textStyle="bold"
-            android:text="Add templates" />
+            android:text="Add templatesS" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:gravity="center|left"
-                android:text="To start work with data, please create your first components templates." />
+                android:text="Too start work with data, please create your first components templates." />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
