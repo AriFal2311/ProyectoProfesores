@@ -16,10 +16,19 @@ import java.util.ArrayList;
 public class adapterSalon extends RecyclerView.Adapter<adapterSalon.ViewHolderDatos> {
     Context context;
     ArrayList<salondt> listSalones;
-
+    OnSalonClickListener listener;
+    public void setOnSalonItemClickListener(OnSalonClickListener listener) {
+        this.listener = listener;
+    }
     public adapterSalon(Context context, ArrayList<salondt> listSalones) {
         this.context = context;
         this.listSalones = listSalones;
+    }
+
+    public adapterSalon(Context context, ArrayList<salondt> listSalones, OnSalonClickListener listener) {
+        this.context = context;
+        this.listSalones = listSalones;
+        this.listener = listener;
     }
 
     @NonNull
@@ -34,7 +43,16 @@ public class adapterSalon extends RecyclerView.Adapter<adapterSalon.ViewHolderDa
     public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
         String aulas = listSalones.get(position).getGrado()+listSalones.get(position).getSeccion();
         holder.fondo.setImageResource(listSalones.get(position).getFondo());
-        holder.aula.setText(aulas);
+        if (holder.aula != null) {
+            holder.aula.setText(aulas);
+        }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int adapterPosition = holder.getAdapterPosition();
+                listener.onSalonClick(adapterPosition);
+            }
+        });
     }
 
     @Override

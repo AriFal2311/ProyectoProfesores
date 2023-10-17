@@ -9,7 +9,7 @@
         android:background="#F6F6F6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,14 +26,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="70dp"
-        android:gravity="center_horizontal">
+        android:layout_marginTop="70dp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclersalon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:scrollbars="vertical"
+            android:layout_marginStart="22.5dp"
             />
 
     </LinearLayout>

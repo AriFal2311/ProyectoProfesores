@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#F6F6F6"
-    android:layout_height="match_parent">
+
+    android:layout_height="match_parent"
+    android:background="@color/whitehumo">
 
     <TextView
         android:id="@+id/textViewTituloNotificacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
-        android:text="Notificaciones"
+        android:text="@string/app_sec2"
+  
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -31,6 +33,7 @@
         app:srcCompat="@drawable/arrow" />
 
     <androidx.recyclerview.widget.RecyclerView
+
         android:id="@+id/recyclerViewNotificaciones"
         android:layout_width="405dp"
         android:layout_height="584dp"
