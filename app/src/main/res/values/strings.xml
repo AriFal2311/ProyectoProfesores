@@ -39,4 +39,8 @@
     <string name="justificacion_especificaciones">Tomar examen Bimestral</string>
     <string name="aula">Aula: </string>
     <string name="especificaciones">Especificaciones:</string>
+    <string name="intro_texto"><b>Organizarte</b> se vuelve mas facil. Ahora al alcance de tu mano. &#9995;</string>
+    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="recuperar_contra">¿Olvidaste tu contraseña?</string>
+    <string name="ingresa_aqui">¡Ingresa aquí!</string>
 </resources>
