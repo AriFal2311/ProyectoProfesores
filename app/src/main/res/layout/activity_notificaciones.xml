@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#F6F6F6"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewTituloNotificacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -17,9 +18,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/imageViewRetroceder"
+        android:layout_width="27dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/arrow" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="376dp"
-        android:layout_height="561dp"
-        tools:layout_editor_absoluteX="21dp"
-        tools:layout_editor_absoluteY="82dp" />
+        android:id="@+id/recyclerViewNotificaciones"
+        android:layout_width="405dp"
+        android:layout_height="584dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="76dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
