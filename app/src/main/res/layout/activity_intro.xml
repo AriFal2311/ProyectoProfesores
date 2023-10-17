@@ -6,9 +6,10 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/button_intro"
         android:layout_width="300dp"
         android:layout_height="48dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="152dp"
         android:background="@drawable/bordes_boton_azul"
         android:backgroundTint="@color/azul"
@@ -17,10 +18,9 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.931"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="ExtraText" />
 
     <ImageView
@@ -64,13 +64,14 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="112dp"
         android:clickable="true"
         android:text="@string/recuperar_contra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintTop_toBottomOf="@+id/button_intro"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
