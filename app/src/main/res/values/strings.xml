@@ -45,7 +45,10 @@
     <string name="ejemplo_mail">example@gmail.com</string>
     <string name="contrasena">Contraseña</string>
     <string name="perfil">Perfil</string>
-    <string name="nombre_apellido">Nombre Apellido</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="tutor">Tutor</string>
+    <string name="correo">Correo</string>
     <string name="actualizar_perfil">Actualizar Perfil</string>
     <string name="ingresa_aqui">¡Ingresa Aquí!</string>
     <string name="por_crear">Esta opción aún no está activa</string>
