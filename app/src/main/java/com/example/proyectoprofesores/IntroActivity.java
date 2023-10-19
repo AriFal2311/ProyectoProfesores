@@ -9,6 +9,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 public class IntroActivity extends AppCompatActivity {
@@ -34,7 +35,12 @@ public class IntroActivity extends AppCompatActivity {
         ss.setSpan(new ForegroundColorSpan(Color.YELLOW), 25, todo.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         TextView textView=findViewById(R.id.text_contra);
         textView.setText(ss);
+
+
     }
 
+    public void MensajeAdvertencia(View mensaje){
+        Toast.makeText(this, R.string.por_crear, Toast.LENGTH_SHORT).show();
+    }
 
 }

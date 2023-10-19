@@ -48,6 +48,8 @@
     <string name="nombre_apellido">Nombre Apellido</string>
     <string name="actualizar_perfil">Actualizar Perfil</string>
     <string name="ingresa_aqui">¡Ingresa Aquí!</string>
+    <string name="por_crear">Esta opción aún no está activa</string>
+    <string name="completar_espacio">Por favor rellene todos los espacios</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

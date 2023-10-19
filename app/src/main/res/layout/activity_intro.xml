@@ -70,6 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="112dp"
+        android:onClick="MensajeAdvertencia"
         android:clickable="true"
         android:minHeight="48dp"
         android:text="@string/recuperar_contra"
