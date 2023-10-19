@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AgendaFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/gris_agenda"
+    android:background="@color/whitehumo"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -72,7 +73,7 @@
             tools:listitem="@layout/fecha_layout" />
 
         <RelativeLayout
-            android:id="@+id/calender_nav"
+            android:id="@+id/titulo_directorio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/recyclerViewCalendar"
@@ -105,7 +106,7 @@
             android:id="@+id/recycleEvento_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/calender_nav"
+            android:layout_below="@id/titulo_directorio"
             android:layout_marginStart="20dp"
             android:layout_marginTop="21dp"
             android:layout_marginEnd="20dp"
@@ -118,15 +119,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/line"
-            android:layout_below="@id/calender_nav"
+            android:layout_below="@id/titulo_directorio"
             android:layout_marginStart="95dp"/>
 
 
 
 
     </RelativeLayout>
-
-
-
 
 </LinearLayout>

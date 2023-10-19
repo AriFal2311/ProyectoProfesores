@@ -9,8 +9,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.proyectoprofesores.databinding.ActivityMainBinding;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -32,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.inicio:
                     replaceFragment(new InicioFragment());
+                    break;
+                case R.id.agenda:
+                    replaceFragment(new AgendaFragment());
+                    break;
+                case R.id.directory:
+                    replaceFragment(new DirectorioFragment());
                     break;
                 case R.id.course:
                     replaceFragment(new SalonFragment());
@@ -62,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             lineaSeleccion.setLayoutParams(params);
         }
     }
-
 
 
 }
