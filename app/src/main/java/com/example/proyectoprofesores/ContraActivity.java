@@ -2,9 +2,14 @@ package com.example.proyectoprofesores;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 public class ContraActivity extends AppCompatActivity{
@@ -23,5 +28,11 @@ public class ContraActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
+        String olvidaste=getString(R.string.recuperar_contra);
+        SpannableString ss= new SpannableString(olvidaste);
+        ss.setSpan(new ForegroundColorSpan(Color.YELLOW), 0, olvidaste.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+        TextView textView=findViewById(R.id.text_contra);
+        textView.setText(ss);
     }
 }
