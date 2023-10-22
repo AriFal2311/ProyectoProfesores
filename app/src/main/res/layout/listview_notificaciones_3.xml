@@ -88,7 +88,7 @@
         android:id="@+id/imageView16"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginStart="316dp"
+        android:layout_marginStart="315dp"
         android:layout_marginTop="16dp"
         app:srcCompat="@drawable/btns_set_s_solo_circle" />
 

@@ -38,7 +38,7 @@
         <TextView
             android:id="@+id/textViewDescripcion"
             android:layout_width="276dp"
-            android:layout_height="36dp"
+            android:layout_height="37dp"
             android:layout_marginStart="0dp"
             android:layout_marginTop="20dp"
             android:text="Reunion de profesores programada para el próximo viernes a las 10:am en la sala de descanso." />
