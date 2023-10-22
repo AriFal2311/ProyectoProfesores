@@ -75,8 +75,24 @@ public class DirectorioFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerViewDirectorio);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
-        listDirectorio.add(new Directorio(R.drawable.mujer_logo, "Alumna Ariana Fuentes", "553 339 721", "553 397 721"));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL, false));
+        listDirectorio.add(new Directorio(R.drawable.mujer_logo, "Alumna Ariana Fuentes",
+                "553 339 721", "553 397 721"));
+        listDirectorio.add(new Directorio(R.drawable.mujer_logo, "Alumna Ariana Fuentes",
+                "553 339 721", "553 397 721"));
+        listDirectorio.add(new Directorio(R.drawable.mujer_logo, "Alumna Ariana Fuentes",
+                "553 339 721", "553 397 721"));
+        listDirectorio.add(new Directorio(R.drawable.mujer_logo, "Alumna Ariana Fuentes",
+                "553 339 721", "553 397 721"));
+        listDirectorio.add(new Directorio(R.drawable.mujer_logo, "Alumna Ariana Fuentes",
+                "553 339 721", "553 397 721"));
+        listDirectorio.add(new Directorio(R.drawable.mujer_logo, "Alumna Ariana Fuentes",
+                "553 339 721", "553 397 721"));
+        listDirectorio.add(new Directorio(R.drawable.mujer_logo, "Alumna Ariana Fuentes",
+                "553 339 721", "553 397 721"));
+        listDirectorio.add(new Directorio(R.drawable.mujer_logo, "Alumna Ariana Fuentes",
+                "553 339 721", "553 397 721"));
+
 
         adapter = new AdapterDirectorio(listDirectorio);
 
