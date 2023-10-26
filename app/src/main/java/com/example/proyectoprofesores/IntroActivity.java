@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 public class IntroActivity extends AppCompatActivity {
     Button button;
     @Override
@@ -32,7 +34,8 @@ public class IntroActivity extends AppCompatActivity {
         String aqui=getString(R.string.ingresa_aqui);
         String todo= olvidaste + " " + aqui;
         SpannableString ss= new SpannableString(todo);
-        ss.setSpan(new ForegroundColorSpan(Color.YELLOW), 25, todo.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
+        int colorP = ContextCompat.getColor(this,R.color.amarillo);
+        ss.setSpan(new ForegroundColorSpan(colorP), 25, todo.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE );
         TextView textView=findViewById(R.id.text_contra);
         textView.setText(ss);
 
