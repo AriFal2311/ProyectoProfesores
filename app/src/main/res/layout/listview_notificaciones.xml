@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageView12"
-        android:layout_width="wrap_content"
+        android:layout_width="358dp"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/___info_messages__2_" />
 
     <ImageView
-        android:id="@+id/imageViewNotificacion"
+        android:id="@+id/imageViewNotificacion1"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
@@ -27,7 +26,7 @@
         >
 
         <TextView
-            android:id="@+id/textViewTituloNotificacion"
+                android:id="@+id/textViewTituloNotificacion1"
             android:layout_width="260dp"
             android:layout_height="20dp"
             android:layout_marginStart="0dp"
@@ -36,9 +35,9 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewDescripcion"
-            android:layout_width="276dp"
-            android:layout_height="37dp"
+            android:id="@+id/textViewDescripcion1"
+            android:layout_width="260dp"
+            android:layout_height="38dp"
             android:layout_marginStart="0dp"
             android:layout_marginTop="20dp"
             android:text="Reunion de profesores programada para el próximo viernes a las 10:am en la sala de descanso." />
