@@ -91,7 +91,49 @@ public class InicioFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inicio, container, false);
+        View view = inflater.inflate(R.layout.fragment_inicio, container, false);
+
+        // ... (código existente)
+
+        ImageView rectangulo_barra = view.findViewById(R.id.vermas);
+        rectangulo_barra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AgendaFragment fragment = new AgendaFragment();
+
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        TextView moreoption = view.findViewById(R.id.moreCursos);
+        moreoption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CoursesFragment fragment = new CoursesFragment();
+
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        TextView moreJust = view.findViewById(R.id.moreJust);
+
+        moreJust.setOnClickListener(new View.OnClickListener() {
+            @Override            public void onClick(View v) {
+                JustifyFragment fragment = new JustifyFragment();
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        // ... (resto del código)
+
+        return view;
     }
 
     @Override
@@ -205,7 +247,7 @@ public class InicioFragment extends Fragment {
 
         // Personalizar el color de fondo
         Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-        layout.setBackgroundColor(Color.parseColor("#222222")); // Asegúrate de definir este color en tu archivo de recursos
+        layout.setBackgroundColor(Color.parseColor("#222222"));
 
         // Personalizar el tamaño de la letra
         TextView textView = snackbarLayout.findViewById(com.google.android.material.R.id.snackbar_text);

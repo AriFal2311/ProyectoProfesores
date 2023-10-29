@@ -17,10 +17,13 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
     private List<CalendarItem> calendarItems;
     private Context context;
 
+
     public CalendarAdapter(List<CalendarItem> calendarItems, Context context) {
         this.calendarItems = calendarItems;
         this.context = context;
     }
+
+
 
     @NonNull
     @Override
@@ -41,8 +44,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         // Configura el OnClickListener para cada elemento
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // Cuando se hace clic en un elemento, muestra los detalles en el Activity
+            public void onClick(View v) {
                 mostrarDetallesDeFecha(item);
             }
         });

@@ -1,5 +1,6 @@
 package com.example.proyectoprofesores;
 
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,15 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 
-public class CoursesFragment extends Fragment {
+public class CoursesFragment extends Fragment implements OnCursoClickListener{
     ArrayList<cursodt> listCursos;
 
     RecyclerView recy;
     RecyclerView recyD;
+
+    String nombre;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,7 +35,7 @@ public class CoursesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ImageButton backButton = view.findViewById(R.id.backButton);
+
         Bundle args = getArguments();
         if (args != null) {
             String textoSalon = args .getString("textoSalon", "");
@@ -44,6 +48,7 @@ public class CoursesFragment extends Fragment {
         listCursos = new ArrayList<>();
         llenarCursos();
         adapterCursos adapter = new adapterCursos(getContext(),listCursos);
+        adapter.setOnCursoClickListener(this);
         recy.setAdapter(adapter);
         adapterCursos.ViewHolderDatos viewHolder = (adapterCursos.ViewHolderDatos) recy.findViewHolderForAdapterPosition(0);
 
@@ -51,24 +56,38 @@ public class CoursesFragment extends Fragment {
         if (viewHolder != null) {
             viewHolder.setDias(listCursos.get(0).getDias());
         }
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Volver al fragment_salon
-                getParentFragmentManager().popBackStack(); // Esto debería volver al fragment_salon si está en el back stack.
-            }
-        });
+
     }
     private void llenarCursos() {
         ArrayList<String> listDias= new ArrayList<>();
         listDias.add("Lunes");
         listDias.add("Martes");
-        listCursos.add(new cursodt(R.drawable.fondo_curso1, R.drawable.logo_math, "Trigonometria", "Secundaria", "3ero", "B", "25", listDias));
+        listCursos.add(new cursodt(R.drawable.fondo_curso1, R.drawable.logo_math, "Trigonometria", "Secundaria", "3B", "25", listDias));
         ArrayList<String> diasCurso2 = new ArrayList<>();
         diasCurso2.add("Martes");
-        listCursos.add(new cursodt(R.drawable.fondo_curso2, R.drawable.logo_math, "Algebra", "Secundaria", "1ro", "A", "20", diasCurso2));
-        listCursos.add(new cursodt(R.drawable.fondo_curso3, R.drawable.logo_plant, "Biologia", "Secundaria", "5to", "B", "22", listDias));
+        listCursos.add(new cursodt(R.drawable.fondo_curso2, R.drawable.logo_math, "Algebra", "Secundaria", "1A", "20", diasCurso2));
+        listCursos.add(new cursodt(R.drawable.fondo_curso3, R.drawable.logo_plant, "Biologia", "Secundaria", "5B", "22", listDias));
 
 
+    }
+
+
+    @Override
+    public void onCursoClick(int position) {
+        String textoCurso = listCursos.get(position).getNombre();
+        String textoAula = listCursos.get(position).getAula();
+        String textoNivel = listCursos.get(position).getNivel();
+
+
+        CourseDescpFragment fragment = new CourseDescpFragment();       Bundle bundle = new Bundle();
+        bundle.putString("aula", textoAula);
+        bundle.putString("curso", textoCurso);
+        bundle.putString("nivel", textoNivel);
+        fragment.setArguments(bundle);
+
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 }
