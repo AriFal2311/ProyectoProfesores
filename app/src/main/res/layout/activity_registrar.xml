@@ -7,19 +7,31 @@
     android:orientation="vertical"
     android:gravity="center">
     <ImageView
-        android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:layout_marginBottom="40dp"
         app:srcCompat="@drawable/group12427mmm" />
     <ProgressBar
-        android:id="@+id/progres_bar"
+        android:id="@+id/progre_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone" />
     <EditText
-        android:id="@+id/editTextEmail"
+        android:id="@+id/TextE"
+        android:layout_width="297dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_personalizado"
+        android:ems="10"
+        android:hint="@string/ejemplo_mail"
+        android:inputType="text"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:textColor="#000000"
+        android:textColorHint="#616161" />
+    <EditText
+        android:id="@+id/TextC"
         android:layout_width="297dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
@@ -32,7 +44,7 @@
         android:textColor="#000000"
         android:textColorHint="#616161" />
     <Button
-        android:id="@+id/button_email"
+        android:id="@+id/button_enter"
         android:layout_width="300dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
