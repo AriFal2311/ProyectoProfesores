@@ -192,6 +192,14 @@ public class InicioFragment extends Fragment {
         });
         userPlace.setOnClickListener(v -> {
             Intent intent = new Intent( getContext(), PerfilActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("idUsuario", idUsuario);
+            bundle.putString("idDocente", idDocente);
+            bundle.putString("nombre", nombre);
+            bundle.putString("apellido", apellido);
+            bundle.putString("correo", correo);
+            bundle.putString("aulaTuto", aulaTuto);
+            intent.putExtras(bundle);
             startActivity(intent);
         });
 

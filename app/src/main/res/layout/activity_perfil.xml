@@ -13,7 +13,7 @@
         tools:context=".PerfilActivity">
 
         <EditText
-            android:id="@+id/editTextText6"
+            android:id="@+id/editTextTutor"
             android:layout_width="297dp"
             android:layout_height="48dp"
             android:background="@drawable/input_personalizado"
@@ -22,14 +22,14 @@
             android:inputType="text"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextText7"
+            app:layout_constraintBottom_toTopOf="@+id/editTextCorreo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText4" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextCursos" />
 
         <EditText
-            android:id="@+id/editTextText7"
+            android:id="@+id/editTextCorreo"
             android:layout_width="297dp"
             android:layout_height="48dp"
             android:background="@drawable/input_personalizado"
@@ -42,10 +42,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText6" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTutor" />
 
         <EditText
-            android:id="@+id/editTextText3"
+            android:id="@+id/editTextApellido"
             android:layout_width="297dp"
             android:layout_height="48dp"
             android:background="@drawable/input_personalizado"
@@ -54,14 +54,14 @@
             android:inputType="text"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextText4"
+            app:layout_constraintBottom_toTopOf="@+id/editTextCursos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextNombre" />
 
         <EditText
-            android:id="@+id/editTextText4"
+            android:id="@+id/editTextCursos"
             android:layout_width="297dp"
             android:layout_height="48dp"
             android:background="@drawable/input_personalizado"
@@ -70,11 +70,11 @@
             android:inputType="text"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextText6"
+            app:layout_constraintBottom_toTopOf="@+id/editTextTutor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextApellido" />
 
         <TextView
             android:id="@+id/textView"
@@ -125,7 +125,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <EditText
-            android:id="@+id/editTextText2"
+            android:id="@+id/editTextNombre"
             android:layout_width="297dp"
             android:layout_height="48dp"
             android:background="@drawable/input_personalizado"
@@ -134,7 +134,7 @@
             android:inputType="text"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            app:layout_constraintBottom_toTopOf="@+id/editTextText3"
+            app:layout_constraintBottom_toTopOf="@+id/editTextApellido"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline14" />
@@ -152,7 +152,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.477"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextText7" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextCorreo" />
 
         <ImageView
             android:id="@+id/backB"
