@@ -13,7 +13,7 @@ public class CursoInicio {
         private CursoInicio cursoInicio;
 
         public Builder() {
-            cursoInicio = cursoInicio;
+            cursoInicio = new CursoInicio();
         }
         public CursoInicio.Builder withCodHorario(String codHorario) {
             cursoInicio.codHorario = codHorario;
