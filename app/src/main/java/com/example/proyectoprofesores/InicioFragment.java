@@ -240,7 +240,7 @@ public class InicioFragment extends Fragment  implements  Response.ErrorListener
 
     private void cargarWebServiceCurso() {
         progressBarI.setVisibility(View.VISIBLE);
-        String ip = "https://proyectoprofesores.000webhostapp.com";
+        String ip = getString(R.string.ip);
         String idDocenteURL ="?id_docente=" + idDocente;
         String url = ip + "/obtenerCursosInicio.php" + idDocenteURL; //cambiar
 
@@ -279,7 +279,7 @@ public class InicioFragment extends Fragment  implements  Response.ErrorListener
 
     private void cargarWebServiceJustificacion(){
         progressBarJ.setVisibility(View.VISIBLE);
-        String ip = "https://proyectoprofesores.000webhostapp.com";
+        String ip = getString(R.string.ip);
         String idDocenteURL ="?id_docente=" + idDocente;
         String url = ip + "/obtenerJustificacionesInicio.php" + idDocenteURL;
 

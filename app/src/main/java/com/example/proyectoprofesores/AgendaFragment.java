@@ -150,7 +150,7 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener, R
     }
     private void cargarWebServiceEventos(){
         progressBar.setVisibility(View.VISIBLE);
-        String ip = "https://proyectoprofesores.000webhostapp.com";
+        String ip = getString(R.string.ip);
         String idDocenteURL ="?id_docente=" + idDocente;
         String url = ip + "/obtenerEventosCalendario.php" + idDocenteURL; //cambiar
 
@@ -176,11 +176,12 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener, R
             // Llena la lista con datos del calendario para este mes
             for (int i = 1; i <= maxDayOfMonth; i++) {
                 calendar.set(year, month, i);
+                int dayOfWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
                 String dayOfWeek = obtenerNombreDiaSemana(calendar.get(Calendar.DAY_OF_WEEK));
                 String monthName = obtenerNombreMes(month);
                 String dayNumber = String.valueOf(i);
 
-                calendarItems.add(new CalendarItem(dayOfWeek, dayNumber, year, month, monthName));
+                calendarItems.add(new CalendarItem(dayOfWeek,dayOfWeekNumber, dayNumber, year, month, monthName));
             }
         }
 
@@ -262,7 +263,7 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener, R
 
             //Adaptador Calendar
 
-            adapterC = new CalendarAdapter(calendarItems, listaEventos, getContext());
+            adapterC = new CalendarAdapter(calendarItems, listaEventos, recyclerEvento, getContext());
             recyclerView.setAdapter(adapterC);
 
             Calendar calendar = Calendar.getInstance();

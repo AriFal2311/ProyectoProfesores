@@ -99,10 +99,19 @@ public class Evento {
 
         return horaFormateada;
     }
-    public static void filtrarEventosPasados(List<Evento> listaDeHorarios) {
+    public static ArrayList<Evento> filtrarEventosPasados(List<Evento> listaDeHorarios) {
+        ArrayList<Evento> eventosFiltrados = new ArrayList<>();
         Time horaActual = obtenerHoraActual();
-        listaDeHorarios.removeIf(horario -> horario.horaFin.before(horaActual));
+
+        for (Evento evento : listaDeHorarios) {
+            if (!evento.horaFin.before(horaActual)) {
+                eventosFiltrados.add(evento);
+            }
+        }
+
+        return eventosFiltrados;
     }
+
     /*
     public static void ordenarListaPorProximidad(List<Evento> listaDeHorarios) {
         Collections.sort(listaDeHorarios, (horario1, horario2) -> {
@@ -119,8 +128,8 @@ public class Evento {
         return new Time(System.currentTimeMillis());
     }
 
-    private static List<Evento> filtrarPorDia(List<Evento> listaDeHorarios, String dia) {
-        List<Evento> horariosFiltrados = new ArrayList<>();
+    public static ArrayList<Evento> filtrarPorDia(ArrayList<Evento> listaDeHorarios, String dia) {
+        ArrayList<Evento> horariosFiltrados = new ArrayList<>();
         for (Evento horario : listaDeHorarios) {
             if (horario.dia.equalsIgnoreCase(dia)) {
                 horariosFiltrados.add(horario);
