@@ -18,14 +18,17 @@ import java.util.List;
 
 public class CalendarAdapter extends RecyclerView.Adapter<com.example.proyectoprofesores.CalendarAdapter.ViewHolder> {
 
-        private List<CalendarItem> calendarItems;
+    private List<CalendarItem> calendarItems;
+    private List<Evento> listaEventos;
+    private RecyclerView recyclerViewE;
     private int selectedItemPosition = -1;
     private boolean inicio = true;
         private Context context;
 
 
-    public CalendarAdapter(List<CalendarItem> calendarItems, Context context) {
+    public CalendarAdapter(List<CalendarItem> calendarItems, List<Evento> listaEventos, Context context) {
         this.calendarItems = calendarItems;
+        this.listaEventos = listaEventos;
         this.context = context;
     }
 

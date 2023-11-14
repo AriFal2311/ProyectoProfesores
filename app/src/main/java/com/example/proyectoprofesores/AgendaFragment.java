@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import java.util.List;
  */
 public class AgendaFragment extends Fragment implements OnAgendaClickListener, Response.Listener<JSONArray>, Response.ErrorListener{
     String idDocente;
+    RelativeLayout directorio;
     private RecyclerView recyclerView;
     private RecyclerView recyclerEvento;
     ArrayList<Evento> listaEventos;
@@ -45,7 +47,7 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener, R
     ProgressBar progressBar;
 
     private List<CalendarItem> calendarItems;
-    private CalendarAdapter adapter;
+    private CalendarAdapter adapterC;
 
     private int currentYear; // Año actual
     private int currentMonth; // Mes actual
@@ -103,33 +105,39 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener, R
 
         recyclerEvento = view.findViewById(R.id.recycleEvento_id);
         progressBar = view.findViewById(R.id.progress_bar);
+
+        directorio = view.findViewById(R.id.titulo_directorio);
+        directorio.setVisibility(View.GONE);
+
         recyclerEvento.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerEvento.setHasFixedSize(true);
 
         cargarWebServiceEventos();
+
+
+        //recycle calendar
+        recyclerView = view.findViewById(R.id.recyclerViewCalendar);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setHasFixedSize(true);
+        calendarItems = new ArrayList<>();
+
+
+
+
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.recyclerViewCalendar);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setHasFixedSize(true);
-        calendarItems = new ArrayList<>();
-        adapter = new CalendarAdapter(calendarItems, getContext());
-        recyclerView.setAdapter(adapter);
+
         TextView number = view.findViewById(R.id.number_calendar);
         TextView weekDayName = view.findViewById(R.id.weekDay_calendar);
         TextView monthName = view.findViewById(R.id.month_calendar);
         TextView year = view.findViewById(R.id.year_calendar);
 
-
-        // Inicializar con el año y mes actual
         Calendar calendar = Calendar.getInstance();
-
-
-//guardar el año y mes actual
+    //guardar el año y mes actual
         currentYear = calendar.get(Calendar.YEAR);
         currentMonth = calendar.get(Calendar.MONTH);
 
@@ -137,9 +145,6 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener, R
         weekDayName.setText(CalendarItem.getFullWeekName(obtenerNombreDiaSemana(calendar.get(Calendar.DAY_OF_WEEK))));
         monthName.setText(obtenerNombreMes(currentMonth));
         year.setText(String.valueOf(currentYear));
-
-        updateCalendar(currentYear);
-        posicionActual(recyclerView);
 
 
     }
@@ -179,7 +184,7 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener, R
             }
         }
 
-        adapter.notifyDataSetChanged();
+        adapterC.notifyDataSetChanged();
     }
 
     private String obtenerNombreDiaSemana(int dayOfWeek) {
@@ -244,11 +249,27 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener, R
                 listaEventos.add(evento);
             }
             progressBar.setVisibility(View.GONE);
+            directorio.setVisibility(View.VISIBLE);
 
+
+            //Evento.filtrarEventosPasados(listaEventos);
+            Evento.ordenarListaPorHoraInicio(listaEventos);
+            //Evento.ordenarListaPorProximidad(listaEventos);
 
             EventoAdapter adapter =  new EventoAdapter(listaEventos, getContext());
             adapter.setOnAgendaClickListener(this);
             recyclerEvento.setAdapter(adapter);
+
+            //Adaptador Calendar
+
+            adapterC = new CalendarAdapter(calendarItems, listaEventos, getContext());
+            recyclerView.setAdapter(adapterC);
+
+            Calendar calendar = Calendar.getInstance();
+            currentYear = calendar.get(Calendar.YEAR);
+            updateCalendar(currentYear);
+
+            posicionActual(recyclerView);
 
         } catch (JSONException e) {
             e.printStackTrace();

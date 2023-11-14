@@ -2,6 +2,10 @@ package com.example.proyectoprofesores;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Evento {
 
@@ -95,4 +99,34 @@ public class Evento {
 
         return horaFormateada;
     }
+    public static void filtrarEventosPasados(List<Evento> listaDeHorarios) {
+        Time horaActual = obtenerHoraActual();
+        listaDeHorarios.removeIf(horario -> horario.horaFin.before(horaActual));
+    }
+    /*
+    public static void ordenarListaPorProximidad(List<Evento> listaDeHorarios) {
+        Collections.sort(listaDeHorarios, (horario1, horario2) -> {
+            long diferencia1 = Math.abs(horario1.horaInicio.getTime() - obtenerHoraActual().getTime());
+            long diferencia2 = Math.abs(horario2.horaInicio.getTime() - obtenerHoraActual().getTime());
+            return Long.compare(diferencia1, diferencia2);
+        });
+    }
+*/
+    public static void ordenarListaPorHoraInicio(List<Evento> listaDeHorarios) {
+        Collections.sort(listaDeHorarios, Comparator.comparing(horario -> horario.horaInicio));
+    }
+    public static Time obtenerHoraActual() {
+        return new Time(System.currentTimeMillis());
+    }
+
+    private static List<Evento> filtrarPorDia(List<Evento> listaDeHorarios, String dia) {
+        List<Evento> horariosFiltrados = new ArrayList<>();
+        for (Evento horario : listaDeHorarios) {
+            if (horario.dia.equalsIgnoreCase(dia)) {
+                horariosFiltrados.add(horario);
+            }
+        }
+        return horariosFiltrados;
+    }
+
 }

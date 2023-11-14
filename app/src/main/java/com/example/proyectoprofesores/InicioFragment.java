@@ -30,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,6 +65,8 @@ public class InicioFragment extends Fragment  implements  Response.ErrorListener
     String nombre;
     String apellido;
     String correo;
+    ProgressBar progressBarI;
+    ProgressBar progressBarJ;
 
     JsonArrayRequest jsonArrayRequestCurso;
     JsonArrayRequest jsonArrayRequestJusti;
@@ -117,6 +120,8 @@ public class InicioFragment extends Fragment  implements  Response.ErrorListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
+        progressBarI = view.findViewById(R.id.progress_barI);
+        progressBarJ = view.findViewById(R.id.progress_barJ);
 
         // ... (código existente)
         Bundle args = getArguments();
@@ -234,6 +239,7 @@ public class InicioFragment extends Fragment  implements  Response.ErrorListener
 
 
     private void cargarWebServiceCurso() {
+        progressBarI.setVisibility(View.VISIBLE);
         String ip = "https://proyectoprofesores.000webhostapp.com";
         String idDocenteURL ="?id_docente=" + idDocente;
         String url = ip + "/obtenerCursosInicio.php" + idDocenteURL; //cambiar
@@ -253,12 +259,14 @@ public class InicioFragment extends Fragment  implements  Response.ErrorListener
 
                         listaCursos.add(cursosInicio);
                     }
+                    progressBarI.setVisibility(View.GONE);
                     AdapterCurso adapter =  new AdapterCurso(listaCursos, getContext());
                     recyclerCurso.setAdapter(adapter);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Error carga cursos" + " " + response, Toast.LENGTH_LONG).show();
+                    progressBarI.setVisibility(View.GONE);
                 }
             }
         }, this);
@@ -270,6 +278,7 @@ public class InicioFragment extends Fragment  implements  Response.ErrorListener
     }
 
     private void cargarWebServiceJustificacion(){
+        progressBarJ.setVisibility(View.VISIBLE);
         String ip = "https://proyectoprofesores.000webhostapp.com";
         String idDocenteURL ="?id_docente=" + idDocente;
         String url = ip + "/obtenerJustificacionesInicio.php" + idDocenteURL;
@@ -286,12 +295,14 @@ public class InicioFragment extends Fragment  implements  Response.ErrorListener
 
                         listaJustificaciones.add(justificacion);
                     }
+                    progressBarJ.setVisibility(View.GONE);
                     AdapterJustificacion adapterj = new AdapterJustificacion(listaJustificaciones);
                     recyclerJustificacion.setAdapter(adapterj);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), "Error carga justificaciones" + " " + response, Toast.LENGTH_LONG).show();
+                    progressBarJ.setVisibility(View.GONE);
                 }
             }
         }, this);
@@ -375,6 +386,8 @@ public class InicioFragment extends Fragment  implements  Response.ErrorListener
         Toast.makeText(getContext(), "No se puede conectar cursosss" + error.toString(), Toast.LENGTH_LONG).show();
         System.out.println();
         Log.d("ERROR:", error.toString());
+        progressBarI.setVisibility(View.GONE);
+        progressBarJ.setVisibility(View.GONE);
 
     }
 
