@@ -8,11 +8,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -22,10 +36,14 @@ import java.util.List;
  * Use the {@link AgendaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AgendaFragment extends Fragment implements OnAgendaClickListener{
+public class AgendaFragment extends Fragment implements OnAgendaClickListener, Response.Listener<JSONArray>, Response.ErrorListener{
+    String idDocente;
     private RecyclerView recyclerView;
     private RecyclerView recyclerEvento;
     ArrayList<Evento> listaEventos;
+    JsonArrayRequest jsonArrayRequestEventos;
+    ProgressBar progressBar;
+
     private List<CalendarItem> calendarItems;
     private CalendarAdapter adapter;
 
@@ -76,7 +94,20 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_agenda, container, false);
+        View view = inflater.inflate(R.layout.fragment_agenda, container, false);
+        // ... (código existente)
+        Bundle args = getArguments();
+        idDocente =args.getString("idDocente", "");
+
+        listaEventos= new ArrayList<>();
+
+        recyclerEvento = view.findViewById(R.id.recycleEvento_id);
+        progressBar = view.findViewById(R.id.progress_bar);
+        recyclerEvento.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerEvento.setHasFixedSize(true);
+
+        cargarWebServiceEventos();
+        return view;
     }
 
     @Override
@@ -110,18 +141,18 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener{
         updateCalendar(currentYear);
         posicionActual(recyclerView);
 
-        //Evento
-        recyclerEvento = view.findViewById(R.id.recycleEvento_id);
-        recyclerEvento.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        listaEventos = new ArrayList<Evento>();
-        for(int i = 0; i <=10; i++){
-            listaEventos.add(new Evento("1:00", "2:00", "cursito", "leer para aprender", "casita"));
-        }
-        EventoAdapter adapterE = new EventoAdapter(listaEventos);
-        adapterE.setOnAgendaClickListener(this);
-        recyclerEvento.setAdapter(adapterE);
+    }
+    private void cargarWebServiceEventos(){
+        progressBar.setVisibility(View.VISIBLE);
+        String ip = "https://proyectoprofesores.000webhostapp.com";
+        String idDocenteURL ="?id_docente=" + idDocente;
+        String url = ip + "/obtenerEventosCalendario.php" + idDocenteURL; //cambiar
 
+        jsonArrayRequestEventos = new JsonArrayRequest(Request.Method.GET, url, null, this, this );
+        //request.add(jsonArrayRequest);
+        jsonArrayRequestEventos.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS*2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VoleySingleton.getIntanciaV(getContext()).addToRequestQueue(jsonArrayRequestEventos);
     }
 
 
@@ -189,5 +220,41 @@ public class AgendaFragment extends Fragment implements OnAgendaClickListener{
             // Establece la posición del día actual en la vista
             recycleCalendar.scrollToPosition(positionOfToday);
         }
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getContext(), "No se puede conectar" + error.toString(), Toast.LENGTH_LONG).show();
+        System.out.println();
+        Log.d("Ayuda aquii:", error.toString());
+        progressBar.setVisibility(View.GONE);
+
+
+
+    }
+
+    @Override
+    public void onResponse(JSONArray response) {
+        try {
+            for(int i=0; i<response.length(); i++){
+                JSONObject jsonObject = response.getJSONObject(i);
+                Evento evento = new Evento(Integer.valueOf(jsonObject.optString("id_horario")), jsonObject.optString("curso"), jsonObject.optString("aula"), jsonObject.optString("nivel"),
+                        jsonObject.optString("dia"), Time.valueOf(jsonObject.optString("horainicio")), Time.valueOf(jsonObject.optString("horafin")));
+
+                listaEventos.add(evento);
+            }
+            progressBar.setVisibility(View.GONE);
+
+
+            EventoAdapter adapter =  new EventoAdapter(listaEventos, getContext());
+            adapter.setOnAgendaClickListener(this);
+            recyclerEvento.setAdapter(adapter);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "No se ha podido establecer conexion con el servidor" + " " + response, Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.GONE);
+        }
+
     }
 }

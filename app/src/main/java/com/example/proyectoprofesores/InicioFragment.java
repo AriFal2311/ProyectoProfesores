@@ -49,13 +49,13 @@ import org.json.JSONObject;
  * Use the {@link InicioFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class InicioFragment extends Fragment  implements Response.Listener<JSONArray>, Response.ErrorListener {
+public class InicioFragment extends Fragment  implements  Response.ErrorListener {
 
    // ArrayList<String> listaCursos;
 
     ArrayList<CursoInicio> listaCursos = new ArrayList<>();
 
-    ArrayList<Justificacion> listaJustificaciones;
+    ArrayList<Justificacion> listaJustificaciones = new ArrayList<>();
     RecyclerView recyclerCurso;
     RecyclerView recyclerJustificacion;
     TextView usuario_bienvenida;
@@ -66,6 +66,7 @@ public class InicioFragment extends Fragment  implements Response.Listener<JSONA
     String correo;
 
     JsonArrayRequest jsonArrayRequestCurso;
+    JsonArrayRequest jsonArrayRequestJusti;
     private ActivityResultLauncher<Intent> scanActivityResultLauncher;
 
 
@@ -121,7 +122,6 @@ public class InicioFragment extends Fragment  implements Response.Listener<JSONA
         Bundle args = getArguments();
         idUsuario = args.getString("idUsuario", "");
         idDocente =args.getString("idDocente", "");
-        System.out.println(idDocente);
         nombre = args.getString("nombre", "");
         apellido = args.getString("apellido", "");
         correo = args.getString("correo", "");
@@ -171,6 +171,12 @@ public class InicioFragment extends Fragment  implements Response.Listener<JSONA
         recyclerCurso.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         recyclerCurso.setHasFixedSize(true);
         cargarWebServiceCurso();
+
+        //instancia del recycleJusti
+        recyclerJustificacion = view.findViewById(R.id.recyclerJustiId);
+        recyclerJustificacion.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerJustificacion.setHasFixedSize(true);
+        cargarWebServiceJustificacion();
 
         return view;
     }
@@ -224,30 +230,79 @@ public class InicioFragment extends Fragment  implements Response.Listener<JSONA
             startActivity(intent);
         });
 
-
-
-        recyclerJustificacion = view.findViewById(R.id.recyclerJustiId);
-        recyclerJustificacion.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        recyclerJustificacion.setHasFixedSize(true);
-        listaJustificaciones = new ArrayList<Justificacion>();
-        for(int i = 0; i <=20; i++){
-            listaJustificaciones.add(new Justificacion("nombre #" + i, "aula #" + i, "detalle #" + i));
-        }
-        AdapterJustificacion adapterj = new AdapterJustificacion(listaJustificaciones);
-        recyclerJustificacion.setAdapter(adapterj);
     }
 
 
     private void cargarWebServiceCurso() {
-        String ip = getString(R.string.ip);
+        String ip = "https://proyectoprofesores.000webhostapp.com";
         String idDocenteURL ="?id_docente=" + idDocente;
         String url = ip + "/obtenerCursosInicio.php" + idDocenteURL; //cambiar
 
-        jsonArrayRequestCurso= new JsonArrayRequest(Request.Method.GET, url, null, this, this );
+        jsonArrayRequestCurso= new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    for(int i=0; i<response.length(); i++){
+                        JSONObject jsonObject = response.getJSONObject(i);
+
+                        CursoInicio cursosInicio =  new CursoInicio.Builder()
+                                .withIdCurso(jsonObject.optString("id_cursos"))
+                                .withCursos(jsonObject.optString("curso"))
+                                .build();
+
+                        listaCursos.add(cursosInicio);
+                    }
+                    AdapterCurso adapter =  new AdapterCurso(listaCursos, getContext());
+                    recyclerCurso.setAdapter(adapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Error carga cursos" + " " + response, Toast.LENGTH_LONG).show();
+                }
+            }
+        }, this);
+
+        //jsonArrayRequestCurso= new JsonArrayRequest(Request.Method.GET, url, null, this, this );
         //request.add(jsonArrayRequest);
-        jsonArrayRequestCurso.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS*4, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        jsonArrayRequestCurso.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS*2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VoleySingleton.getIntanciaV(getContext()).addToRequestQueue(jsonArrayRequestCurso);
     }
+
+    private void cargarWebServiceJustificacion(){
+        String ip = "https://proyectoprofesores.000webhostapp.com";
+        String idDocenteURL ="?id_docente=" + idDocente;
+        String url = ip + "/obtenerJustificacionesInicio.php" + idDocenteURL;
+
+        jsonArrayRequestJusti= new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+            @Override
+            public void onResponse(JSONArray response) {
+                try {
+                    for(int i=0; i<response.length(); i++){
+                        JSONObject jsonObject = response.getJSONObject(i);
+
+                        Justificacion justificacion = new Justificacion(Integer.valueOf(jsonObject.optString("idJusti")), jsonObject.optString("nomAlumno"), jsonObject.optString("aula"), java.sql.Date.valueOf(jsonObject.optString("fecha")));
+
+                        listaJustificaciones.add(justificacion);
+                    }
+                    AdapterJustificacion adapterj = new AdapterJustificacion(listaJustificaciones);
+                    recyclerJustificacion.setAdapter(adapterj);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Error carga justificaciones" + " " + response, Toast.LENGTH_LONG).show();
+                }
+            }
+        }, this);
+
+        jsonArrayRequestJusti.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS*2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VoleySingleton.getIntanciaV(getContext()).addToRequestQueue(jsonArrayRequestJusti);
+
+    }
+
+
+
     private void iniciarEscaneo() {
         IntentIntegrator integrator = new IntentIntegrator(requireActivity());
         integrator.setOrientationLocked(true);
@@ -323,32 +378,4 @@ public class InicioFragment extends Fragment  implements Response.Listener<JSONA
 
     }
 
-    @Override
-    public void onResponse(JSONArray response) {
-        try {
-            for(int i=0; i<response.length(); i++){
-                JSONObject jsonObject = response.getJSONObject(i);
-
-               CursoInicio cursosInicio =  new CursoInicio.Builder()
-                       .withCodHorario(jsonObject.optString("cod_horario"))
-                       .withAula(jsonObject.optString("aula"))
-                       .withCursos(jsonObject.optString("curso"))
-                       .withDia(jsonObject.optString("dia"))
-                       .withHoraInicio(Time.valueOf(jsonObject.optString("horainicio")))
-                       .withHoraFin(Time.valueOf(jsonObject.optString("horafin")))
-                       .build();
-
-               listaCursos.add(cursosInicio);
-            }
-           // progressBar.setVisibility(View.GONE);
-          AdapterCurso adapter =  new AdapterCurso(listaCursos, getContext());
-            recyclerCurso.setAdapter(adapter);
-           // recyFal.setAdapter(adapter);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "Error carga cursos" + " " + response, Toast.LENGTH_LONG).show();
-           // progressBar.setVisibility(View.GONE);
-        }
-    }
 }
