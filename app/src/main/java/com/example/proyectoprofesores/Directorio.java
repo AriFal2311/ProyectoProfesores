@@ -1,46 +1,60 @@
 package com.example.proyectoprofesores;
 
 public class Directorio {
-    public int imageAlum;
-    public String nombreAlum;
+
+
+    public int image;
+    public String nombre;
     public String num_Madre;
     public String num_Padre;
-    public int imagefondo;
 
-    public static class Builder {
-        private Directorio directorio;
 
-        public Builder() {
-            directorio = new Directorio();
-        }
 
-        public Builder withImageAlum(int imageAlum) {
-            directorio.imageAlum = imageAlum;
-            return this;
-        }
+    public int  imagefondo;
 
-        public Builder withNombreAlum(String nombreAlum) {
-            directorio.nombreAlum = nombreAlum;
-            return this;
-        }
+    public Directorio( int image, String nombre, String num_Madre, String num_Padre,int imagefondo) {
 
-        public Builder withNum_Madre(String num_Madre) {
-            directorio.num_Madre = num_Madre;
-            return this;
-        }
-
-        public Builder withNum_Padre(String num_Padre) {
-            directorio.num_Padre = num_Padre;
-            return this;
-        }
-
-        public Builder withImagefondo(int imagefondo) {
-            directorio.imagefondo = imagefondo;
-            return this;
-        }
-
-        public Directorio build() {
-            return directorio;
-        }
+        this.image = image;
+        this.nombre = nombre;
+        this.num_Madre = num_Madre;
+        this.num_Padre = num_Padre;
+        this.imagefondo = imagefondo;
     }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNum_Madre() {
+        return num_Madre;
+    }
+
+
+
+    public void setNum_Madre(String num_Madre) {
+        this.num_Madre = num_Madre;
+    }
+
+    public String getNum_Padre() {
+        return num_Padre;
+    }
+
+    public void setNum_Padre(String num_Padre) {
+        this.num_Padre = num_Padre;
+    }
+    public int getImagefondo() { return imagefondo;}
+
+    public void setImagefondo(int imagefondo) {this.imagefondo = imagefondo;}
 }

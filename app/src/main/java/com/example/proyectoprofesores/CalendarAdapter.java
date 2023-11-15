@@ -6,27 +6,39 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class CalendarAdapter extends RecyclerView.Adapter<com.example.proyectoprofesores.CalendarAdapter.ViewHolder> {
 
-        private List<CalendarItem> calendarItems;
+    private List<CalendarItem> calendarItems;
+    private ArrayList<Evento> listaEventos;
+    private RecyclerView recyclerViewE;
     private int selectedItemPosition = -1;
     private boolean inicio = true;
-        private Context context;
+    private Context context;
+    RelativeLayout noevento;
+    ImageView lineaE;
 
 
-    public CalendarAdapter(List<CalendarItem> calendarItems, Context context) {
+
+    public CalendarAdapter(List<CalendarItem> calendarItems, ArrayList<Evento> listaEventos, RecyclerView recyclerViewE, Context context, RelativeLayout noevento, ImageView lineaE) {
         this.calendarItems = calendarItems;
+        this.listaEventos = listaEventos;
+        this.recyclerViewE = recyclerViewE;
         this.context = context;
+        this.noevento = noevento;
+        this.lineaE = lineaE;
     }
 
 
@@ -36,6 +48,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<com.example.proyectopr
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fecha_layout, parent, false);
         return new ViewHolder(view);
+
+
     }
 
     @Override
@@ -58,6 +72,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<com.example.proyectopr
 
         Calendar calendar = Calendar.getInstance();
         int todayDay = calendar.get(Calendar.DAY_OF_MONTH);
+        int todayWeek = calendar.get(Calendar.DAY_OF_WEEK);
         int todayMonth = calendar.get(Calendar.MONTH);
         int todayYear = calendar.get(Calendar.YEAR);
 
@@ -69,6 +84,20 @@ public class CalendarAdapter extends RecyclerView.Adapter<com.example.proyectopr
             holder.dayOfWeek.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
             holder.dayNumber.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
             inicio = false;
+
+            //actualizar eventos
+            ArrayList<Evento> eventosF= Evento.filtrarPorDia(listaEventos, CalendarItem.obtenerNombreDiaSemanaBD(todayWeek));
+            eventosF = (ArrayList<Evento>) Evento.filtrarEventosPasados(eventosF);
+            EventoAdapter adapter =  new EventoAdapter(eventosF, context);
+            recyclerViewE.setAdapter(adapter);
+
+            if(eventosF.size() == 0){
+                noevento.setVisibility(View.VISIBLE);
+                lineaE.setVisibility(View.GONE);
+            }
+
+
+
         }
 
         // Comprueba si el elemento actual es diferente del elemento seleccionado y no es el día actual
@@ -76,14 +105,51 @@ public class CalendarAdapter extends RecyclerView.Adapter<com.example.proyectopr
             holder.itemView.setBackgroundResource(R.drawable.rectangle_outline);
             holder.dayOfWeek.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
             holder.dayNumber.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+
         }
 
         // Configura el OnClickListener para cada elemento
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int dayOfWeek = item.getDayOfWeekNumber();
 
-                mostrarDetallesDeFecha(item);
+                //RESTAURAR VISTA
+
+                noevento.setVisibility(View.GONE);
+                lineaE.setVisibility(View.VISIBLE);
+
+                if (item.getDayNumber().equals(String.valueOf(todayDay)) && item.getMonth() == todayMonth && item.getYear() == todayYear){
+                    //actualizar eventos
+                    ArrayList<Evento> eventosF;
+                    eventosF  = Evento.filtrarPorDia(listaEventos, CalendarItem.obtenerNombreDiaSemanaBD(dayOfWeek));
+                    eventosF = (ArrayList<Evento>) Evento.filtrarEventosPasados(eventosF);
+                    EventoAdapter adapter =  new EventoAdapter(eventosF, context);
+                    recyclerViewE.setAdapter(adapter);
+                    mostrarDetallesDeFecha(item);
+                    mostrarDetallesDeFecha(item);
+
+                    if(eventosF.size() == 0){
+                        noevento.setVisibility(View.VISIBLE);
+                        lineaE.setVisibility(View.GONE);
+                    }
+
+                }else {
+                    //actualizar eventos
+                    ArrayList<Evento> eventosF;
+                    eventosF  = Evento.filtrarPorDia(listaEventos, CalendarItem.obtenerNombreDiaSemanaBD(dayOfWeek));
+                    EventoAdapter adapter =  new EventoAdapter(eventosF, context);
+                    recyclerViewE.setAdapter(adapter);
+                    mostrarDetallesDeFecha(item);
+
+                    if(eventosF.size() == 0){
+                        noevento.setVisibility(View.VISIBLE);
+                        lineaE.setVisibility(View.GONE);
+                    }
+                }
+
+
+
 
                 if (!item.isSelected()) {
                     // Restablece el fondo del elemento previamente seleccionado
