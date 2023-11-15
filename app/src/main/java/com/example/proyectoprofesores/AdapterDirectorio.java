@@ -34,10 +34,10 @@ public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
         // Use Glide to load images into ImageView
-        Glide.with(context).load(listDirectorio.get(position).imageAlum).into(holder.Contacto);
+        Glide.with(context).load(listDirectorio.get(position).image).into(holder.Contacto);
         Glide.with(context).load(listDirectorio.get(position).imagefondo).into(holder.FondoContacto);
 
-        holder.NombreAlumno.setText(listDirectorio.get(position).nombreAlum);
+        holder.NombreAlumno.setText(listDirectorio.get(position).nombre);
         holder.NumeroMadre.setText(listDirectorio.get(position).num_Madre);
         holder.NumeroPadre.setText(listDirectorio.get(position).num_Padre);
     }
