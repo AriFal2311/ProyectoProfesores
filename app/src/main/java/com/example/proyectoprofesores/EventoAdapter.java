@@ -1,5 +1,6 @@
 package com.example.proyectoprofesores;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,10 @@ import java.util.ArrayList;
 
 public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolderDatos> {
     ArrayList<Evento> listDatos;
-    public EventoAdapter(ArrayList<Evento> listDatos) {
+    Context context;
+    public EventoAdapter(ArrayList<Evento> listDatos, Context context) {
         this.listDatos = listDatos;
+        this.context = context;
     }
     OnAgendaClickListener listener;
 
@@ -45,7 +48,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
 
         if (position == 0) {
             // Cambiar el fondo del primer elemento
-            holder.containerLayout.setImageResource(R.drawable.curso_agenda_primero);
+            holder.containerLayout.setBackgroundResource(R.drawable.curso_agenda_primero);
             holder.iconoubicacion.setImageResource(R.drawable.icon_location);
             holder.mas.setImageResource(R.drawable.icon_mas_light);
             holder.horaInicio.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
@@ -55,7 +58,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
             holder.lugar.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
         } else {
             // Restablecer el fondo para otros elementos
-            holder.containerLayout.setImageResource(R.drawable.curso_agenda);
+            holder.containerLayout.setBackgroundResource(R.drawable.curso_agenda);
             holder.iconoubicacion.setImageResource(R.drawable.icon_location_dark);
             holder.mas.setImageResource(R.drawable.icon_mas_dark);
             holder.horaInicio.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
@@ -79,7 +82,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
     }
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
-        ImageView containerLayout;
+        RelativeLayout containerLayout;
         ImageView iconoubicacion;
         ImageView mas;
 
@@ -96,15 +99,15 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.ViewHolder
             horaInicio= itemView.findViewById(R.id.hora_inicio);
             horaFin = itemView.findViewById(R.id.hora_fin);
             cursoNombre= itemView.findViewById(R.id.curso_nombre_agenda);
-            cursoTema= itemView.findViewById(R.id.curso_tema_agemda);
+            cursoTema= itemView.findViewById(R.id.curso_nivel_agemda);
             lugar= itemView.findViewById(R.id.lugar_id);
         }
         public void asignarDatos(Evento dato) {
-            horaInicio.setText(dato.getHoraInicio());
-            horaFin.setText(dato.getHoraFin());
-            cursoNombre.setText(dato.getNombreCurso());
-            cursoTema.setText(dato.getTemaCurso());
-            lugar.setText(dato.getLugar());
+            horaInicio.setText(Evento.convertirTiempoAstring(dato.getHoraInicio()));
+            horaFin.setText(Evento.convertirTiempoAstring(dato.getHoraFin()));
+            cursoNombre.setText(dato.getCurso());
+            cursoTema.setText(dato.getNivel());
+            lugar.setText(dato.getAula());
         }
     }
 
