@@ -10,12 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 
-public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.ViewHolderDatos> {
-
+public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.ViewHolderDatos>  {
     ArrayList<Directorio> listDirectorio;
     Context context;
 
@@ -30,17 +27,21 @@ public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.Vi
         View view = LayoutInflater.from(context).inflate(R.layout.listview_contactos, parent, false);
         return new ViewHolderDatos(view);
     }
-
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
-
-        String alumno  = "" + listDirectorio.get(position). nombreAlumno;
+    public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position){
+    String alumno = "" + listDirectorio.get(position).nombreAlumno;
         holder.NombreAlumno.setText(alumno);
 
-
-        //holder.NombreAlumno.setText(listDirectorio.get(position).nombreAlumno);
         holder.NombrePariente.setText(listDirectorio.get(position).nombrePariente);
         holder.NumeroPariente.setText(listDirectorio.get(position).numeroPariente);
+
+        if (position % 2 == 0) {
+            holder.FondoContacto.setImageResource(R.drawable.contact_box);
+            holder.Contacto.setImageResource(R.drawable.boy__1_);
+        } else {
+            holder.FondoContacto.setImageResource(R.drawable.contact_box_azul);
+            holder.Contacto.setImageResource(R.drawable.user_image);
+        }
     }
 
     @Override
@@ -49,7 +50,6 @@ public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.Vi
     }
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
-
         ImageView Contacto, FondoContacto;
         TextView NombreAlumno, NombrePariente, NumeroPariente;
 
@@ -60,9 +60,7 @@ public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.Vi
             NombrePariente = itemView.findViewById(R.id.textViewNombrePariente);
             NumeroPariente = itemView.findViewById(R.id.textViewNumeroPariente);
             FondoContacto = itemView.findViewById(R.id.imageViewFondo);
+
         }
     }
 }
-
-
-
