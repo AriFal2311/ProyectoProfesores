@@ -26,7 +26,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextCursos" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextCursos"
+            android:layout_marginTop="8dp"/>
 
         <EditText
             android:id="@+id/editTextCorreo"
@@ -42,9 +43,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTutor" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTutor"
+            android:layout_marginTop="8dp"/>
 
-        <EditText
+        <TextView
             android:id="@+id/editTextApellido"
             android:layout_width="297dp"
             android:layout_height="48dp"
@@ -52,15 +54,18 @@
             android:ems="10"
             android:hint="@string/apellido"
             android:inputType="text"
+            android:textSize="18sp"
+            android:gravity="center_vertical|start"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             app:layout_constraintBottom_toTopOf="@+id/editTextCursos"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.526"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNombre" />
+            app:layout_constraintEnd_toEndOf="@+id/editTextCursos"
+            app:layout_constraintHorizontal_bias="0.017"
+            app:layout_constraintStart_toStartOf="@+id/editTextCursos"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNombre"
+            android:layout_marginTop="8dp"/>
 
-        <EditText
+        <TextView
             android:id="@+id/editTextCursos"
             android:layout_width="297dp"
             android:layout_height="48dp"
@@ -68,13 +73,16 @@
             android:ems="10"
             android:hint="@string/inicio_cursos"
             android:inputType="text"
+            android:textSize="18sp"
+            android:gravity="center_vertical|start"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             app:layout_constraintBottom_toTopOf="@+id/editTextTutor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextApellido" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextApellido"
+            android:layout_marginTop="8dp"/>
 
         <TextView
             android:id="@+id/textView"
@@ -93,7 +101,7 @@
             android:id="@+id/imageView6"
             android:layout_width="84dp"
             android:layout_height="83dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintBottom_toTopOf="@+id/textNombre"
             app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintStart_toStartOf="@+id/textView"
@@ -102,29 +110,29 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/textNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nombre"
             android:textColor="#000000"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/textView5"
+            app:layout_constraintBottom_toTopOf="@+id/textCorreo"
             app:layout_constraintEnd_toEndOf="@+id/imageView6"
             app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="@+id/imageView6"
             app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/textCorreo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ejemplo_mail"
+            android:text="ejemplo_mail"
             app:layout_constraintBottom_toTopOf="@+id/guideline14"
             app:layout_constraintEnd_toEndOf="@+id/imageView6"
             app:layout_constraintStart_toStartOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/textNombre" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTextNombre"
             android:layout_width="297dp"
             android:layout_height="48dp"
@@ -132,19 +140,40 @@
             android:ems="10"
             android:hint="@string/nombre"
             android:inputType="text"
+            android:textSize="18sp"
+            android:gravity="center_vertical|start"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             app:layout_constraintBottom_toTopOf="@+id/editTextApellido"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline14" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextID"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/editTextID"
+            android:layout_width="297dp"
+            android:layout_height="48dp"
+            android:background="@drawable/input_personalizado"
+            android:ems="10"
+            android:hint="ID"
+            android:inputType="text"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/editTextNombre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline14"
+            android:layout_marginTop="8dp"/>
 
         <Button
             android:id="@+id/button_actualilzar"
-            android:layout_width="300dp"
+            android:layout_width="227dp"
             android:layout_height="48dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bordes_boton_azul"
             android:backgroundTint="@color/azul"
+            android:onClick="actualizar"
             android:text="@string/actualizar_perfil"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
@@ -210,8 +239,9 @@
 
         <Button
             android:id="@+id/button_cerrar_sesion"
-            android:layout_width="300dp"
+            android:layout_width="227dp"
             android:layout_height="48dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bordes_boton_azul"
             android:backgroundTint="#E86767"
             android:text="@string/cerrar_sesion"
