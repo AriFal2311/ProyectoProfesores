@@ -298,10 +298,12 @@ public class InicioFragment extends Fragment  implements  Response.ErrorListener
                     // Convertir la hora String a Date
                         SimpleDateFormat sdfParse = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
                         Date horaInicioDate = sdfParse.parse(jsonObject.optString("horainicio"));
+                        Date horaFinDate = sdfParse.parse(jsonObject.optString("horafin"));
                     // Formatear la hora a un nuevo formato sin segundos
                         SimpleDateFormat sdfFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-                        String horaFormateada = sdfFormat.format(horaInicioDate);
-                        cursoHora.setText(horaFormateada);
+                        String horaIFormateada = sdfFormat.format(horaInicioDate);
+                        String horaFFormateada = sdfFormat.format(horaFinDate);
+                        cursoHora.setText(horaIFormateada + " - " + horaFFormateada);
 
                         cursoAula.setText("Aula " + jsonObject.optString("aula"));
 
