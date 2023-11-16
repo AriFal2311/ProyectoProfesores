@@ -1,81 +1,66 @@
-    package com.example.proyectoprofesores;
+package com.example.proyectoprofesores;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-    import android.view.LayoutInflater;
-    import android.view.View;
-    import android.view.ViewGroup;
-    import android.widget.ImageSwitcher;
-    import android.widget.ImageView;
-    import android.widget.TextView;
-    import androidx.annotation.NonNull;
-    import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-    import com.example.proyectoprofesores.Directorio;
+import java.util.ArrayList;
 
-    import java.util.ArrayList;
-    import java.util.Collections;
+public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.ViewHolderDatos>  {
+    ArrayList<Directorio> listDirectorio;
+    Context context;
 
-    public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.ViewHolderDatos> {
+    public AdapterDirectorio(ArrayList<Directorio> listDirectorio, Context context) {
+        this.listDirectorio = listDirectorio;
+        this.context = context;
+    }
 
-        private ArrayList<Directorio> listDirectorio;
+    @NonNull
+    @Override
+    public AdapterDirectorio.ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.listview_contactos, parent, false);
+        return new ViewHolderDatos(view);
+    }
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position){
+    String alumno = "" + listDirectorio.get(position).nombreAlumno;
+        holder.NombreAlumno.setText(alumno);
 
-        public AdapterDirectorio(ArrayList<Directorio> listDirectorio) {
-            this.listDirectorio = listDirectorio;
-        }
-        @NonNull
-        @Override
-        public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_contactos, parent, false);
-            return new ViewHolderDatos(view);
-        }
+        holder.NombrePariente.setText(listDirectorio.get(position).nombrePariente);
+        holder.NumeroPariente.setText(listDirectorio.get(position).numeroPariente);
 
-
-        @Override
-        public void onBindViewHolder(@NonNull AdapterDirectorio.ViewHolderDatos holder, int position) {
-            holder.asignarDatos(listDirectorio.get(position));
-
-
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return listDirectorio.size();
-        }
-
-        public class ViewHolderDatos extends RecyclerView.ViewHolder {
-
-            ImageView imageViewContacto;
-            TextView textViewNombreAlumno;
-            TextView textViewNumeroMadre;
-            TextView textViewNumeroPadre;
-
-            ImageView imageViewFondo;
-
-
-            public ViewHolderDatos(@NonNull View itemView) {
-                super(itemView);
-                imageViewContacto = itemView.findViewById(R.id.imageViewContacto);
-                textViewNombreAlumno = itemView.findViewById(R.id.textViewNombreAlumno);
-                textViewNumeroMadre = itemView.findViewById(R.id.textViewNumeroMadre);
-                textViewNumeroPadre = itemView.findViewById(R.id.textViewNumeroPadre);
-                imageViewFondo = itemView.findViewById(R.id.imageViewFondo);
-            }
-
-
-
-
-            public void asignarDatos(Directorio directorio) {
-                imageViewContacto.setImageResource(directorio.getImage());
-                textViewNombreAlumno.setText(directorio.getNombre());
-                textViewNumeroMadre.setText(directorio.getNum_Madre());
-                textViewNumeroPadre.setText(directorio.getNum_Padre());
-                imageViewFondo.setImageResource(directorio.getImagefondo());
-            }
-
-
-        }
-        public void orderListByAlphabet() {
-            Collections.sort(listDirectorio, (d1, d2) -> d1.getNombre().compareTo(d2.getNombre()));
+        if (position % 2 == 0) {
+            holder.FondoContacto.setImageResource(R.drawable.contact_box);
+            holder.Contacto.setImageResource(R.drawable.boy__1_);
+        } else {
+            holder.FondoContacto.setImageResource(R.drawable.contact_box_azul);
+            holder.Contacto.setImageResource(R.drawable.user_image);
         }
     }
+
+    @Override
+    public int getItemCount() {
+        return listDirectorio.size();
+    }
+
+    public class ViewHolderDatos extends RecyclerView.ViewHolder {
+        ImageView Contacto, FondoContacto;
+        TextView NombreAlumno, NombrePariente, NumeroPariente;
+
+        public ViewHolderDatos(@NonNull View itemView) {
+            super(itemView);
+            Contacto = itemView.findViewById(R.id.imageViewContacto);
+            NombreAlumno = itemView.findViewById(R.id.textViewNombreAlumno);
+            NombrePariente = itemView.findViewById(R.id.textViewNombrePariente);
+            NumeroPariente = itemView.findViewById(R.id.textViewNumeroPariente);
+            FondoContacto = itemView.findViewById(R.id.imageViewFondo);
+
+        }
+    }
+}

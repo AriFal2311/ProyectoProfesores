@@ -2,40 +2,40 @@ package com.example.proyectoprofesores;
 
 public class Notificaciones {
 
-    public int image;
+    public int id;
     public String titulo;
     public String noti;
 
-    public Notificaciones(int image, String titulo, String noti) {
-        this.image = image;
-        this.titulo = titulo;
-        this.noti = noti;
-    }
+   public static  class Builder {
+       private Notificaciones notificaciones;
+
+       public Builder() {
+           notificaciones = new Notificaciones();
+       }
+
+       public Builder withTitulo(String titulo){
+           notificaciones.titulo=titulo;
+           return this;
+       }
+       public Builder withNoti(String noti){
+           notificaciones.noti=noti;
+           return this;
+       }
+
+       public Builder withId(int id) {
+           notificaciones.id = id;
+           return this;
+       }
+
+       public Notificaciones build() {
+            return notificaciones;
+       }
+   }
 
 
 
-    public void setImage(int image) {
-        this.image = image;
-    }
 
-    public int getImage(int image){
-        return image;
-    }
 
-    public String getTitulo() {
-        return titulo;
-    }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getNoti() {
-        return noti;
-    }
-
-    public void setNoti(String noti) {
-        this.noti = noti;
-    }
 
 }
