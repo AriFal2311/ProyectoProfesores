@@ -195,7 +195,7 @@
                     //params.put("nombre", Nombre);
                     //params.put("apellido", Apellido);
                     params.put("correo", Correo);
-                    params.put("curso", Curso);
+                    //params.put("curso", Curso);
                     params.put("tutor", Tutor);
                     params.put("usuario", Id);
                     // Otros campos que deseas actualizar
