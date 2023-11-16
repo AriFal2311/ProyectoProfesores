@@ -31,7 +31,7 @@ public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) 
         String alumno = "" + listDirectorio.get(position).nombreAlumno;
         holder.NombreAlumno.setText(alumno);
 
