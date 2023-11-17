@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class CoursesFragment extends Fragment implements OnCursoClickListener, Response.Listener<JSONArray>, Response.ErrorListener {
@@ -70,13 +71,18 @@ public class CoursesFragment extends Fragment implements OnCursoClickListener, R
 
 // Configura el RecyclerView de días
         if (viewHolder != null) {
-            viewHolder.setDias(listCursos.get(0).getDias());
+            //viewHolder.setDias(listCursos.get(0).getDias());
+            viewHolder.setDias(listCursos.get(0).getDiasPorCurso().get(listCursos.get(0).getNombre()));
         }
         searchView = view.findViewById(R.id.busqueda_directorio);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                if (query.isEmpty()) {
+                    // Si el campo de búsqueda está vacío, muestra la lista completa de cursos
+                    filter("");  // Puedes cambiar esto según tus necesidades
+                }
+                return true;
             }
 
             @Override
@@ -141,7 +147,7 @@ public class CoursesFragment extends Fragment implements OnCursoClickListener, R
     @Override
     public void onResponse(JSONArray response) {
         try {
-            Toast.makeText(getContext(), "Si responde", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getContext(), "Si responde", Toast.LENGTH_LONG).show();
             for (int i = 0; i < response.length(); i++) {
                 JSONObject jsonObject = response.getJSONObject(i);
                 //Toast.makeText(getContext(), "Intento: " + i, Toast.LENGTH_LONG).show();
@@ -152,12 +158,23 @@ public class CoursesFragment extends Fragment implements OnCursoClickListener, R
                 String aula = jsonObject.getString("nombre_aula");
                 String dia = jsonObject.getString("dia");
 
+                cursodt existingCurso = findCursoByName(nombreCurso);
                 // Crear una ArrayList para los días y agregar el día
-                ArrayList<String> listDias = new ArrayList<>();
-                listDias.add(dia);
+//                ArrayList<String> listDias = new ArrayList<>();
+//                listDias.add(dia);
+
+                if (existingCurso != null) {
+                    // Si existe, agregar el día al curso existente
+                    existingCurso.getDiasPorCurso().get(nombreCurso).add(dia);
+                } else {
+                    // Si no existe, crear un nuevo curso
+                    ArrayList<String> listDias = new ArrayList<>();
+                    listDias.add(dia);
+                    listCursos.add(new cursodt(R.drawable.fondo_curso1, R.drawable.logo_math, nombreCurso, nivel, aula, "22", listDias));
+                }
 
                 // Crear un nuevo objeto cursodt y agregarlo a listCursos
-                listCursos.add(new cursodt(R.drawable.fondo_curso1, R.drawable.logo_math, nombreCurso, nivel, aula, "22", listDias));
+                //listCursos.add(new cursodt(R.drawable.fondo_curso1, R.drawable.logo_math, nombreCurso, nivel, aula, "22", listDias));
             }
 
             // Utilizar listCursos según sea necesario en tu aplicación
@@ -197,12 +214,19 @@ public class CoursesFragment extends Fragment implements OnCursoClickListener, R
                 if(selectedFilter.equals("todos")){
                     filteredList.add(curso);
                 }else{
-                    ArrayList<String> diasCurso = curso.getDias();
-
+                    //ArrayList<String> diasCurso = curso.getDias();
+                    HashMap<String, ArrayList<String>> diasPorCurso = curso.getDiasPorCurso();
                     ArrayList<String> diasCursoLowerCase = new ArrayList<>();
-                    for (String dia : diasCurso) {
-                        diasCursoLowerCase.add(dia.toLowerCase()); // Convertir a minúsculas
+
+                    if (diasPorCurso.containsKey(curso.getNombre())) {
+                        ArrayList<String> diasCurso = diasPorCurso.get(curso.getNombre());
+                        for (String dia : diasCurso) {
+                            diasCursoLowerCase.add(dia.toLowerCase());
+                        }
                     }
+//                    for (String dia : diasCurso) {
+//                        diasCursoLowerCase.add(dia.toLowerCase()); // Convertir a minúsculas
+//                    }
 
                     if (diasCursoLowerCase.contains(selectedFilter)) {
                         filteredList.add(curso);
@@ -223,11 +247,21 @@ public class CoursesFragment extends Fragment implements OnCursoClickListener, R
 
         ArrayList<cursodt> filteredList = new ArrayList<>();
         for (cursodt curso : listCursos) {
-            ArrayList<String> diasCurso = curso.getDias();
+//            ArrayList<String> diasCurso = curso.getDias();
+//
+//            ArrayList<String> diasCursoLowerCase = new ArrayList<>();
+//            for (String dia : diasCurso) {
+//                diasCursoLowerCase.add(dia.toLowerCase()); // Convertir a minúsculas
+//            }
 
+            HashMap<String, ArrayList<String>> diasPorCurso = curso.getDiasPorCurso();
             ArrayList<String> diasCursoLowerCase = new ArrayList<>();
-            for (String dia : diasCurso) {
-                diasCursoLowerCase.add(dia.toLowerCase()); // Convertir a minúsculas
+
+            if (diasPorCurso.containsKey(curso.getNombre())) {
+                ArrayList<String> diasCurso = diasPorCurso.get(curso.getNombre());
+                for (String dia : diasCurso) {
+                    diasCursoLowerCase.add(dia.toLowerCase());
+                }
             }
 
             if (diasCursoLowerCase.contains(selectedFilter)) {
@@ -246,6 +280,15 @@ public class CoursesFragment extends Fragment implements OnCursoClickListener, R
         filteredAdapter.setOnCursoClickListener(this);
         recy.setAdapter(filteredAdapter);
 
+    }
+
+    private cursodt findCursoByName(String nombreCurso) {
+        for (cursodt curso : listCursos) {
+            if (curso.getDiasPorCurso().containsKey(nombreCurso)) {
+                return curso;
+            }
+        }
+        return null;
     }
 
 }

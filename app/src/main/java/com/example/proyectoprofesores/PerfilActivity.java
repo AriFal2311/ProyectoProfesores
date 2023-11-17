@@ -131,15 +131,7 @@
                             edCurso.setText(curso);
                             edTutor.setText(tutor);
                             edID.setText(user);
-                            // Actualiza las vistas con los nuevos datos
-    //                        edNombre.setText(nombre);
-    //                        edApellido.setText(apellido);
-    //                        edCurso.setText(idDocente);
-    //                        edTutor.setText(aulaTuto);
-    //                        edCorreo.setText(correo);
-    //                        tNombre.setText(nombre);
-    //                        tCorreo.setText(correo);
-    
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Error al obtener datos del perfil", Toast.LENGTH_SHORT).show();
@@ -180,6 +172,18 @@
                         Toast.makeText(getApplicationContext(), "Actualizado con éxito", Toast.LENGTH_SHORT).show();
     //                    startActivity(new Intent(getApplicationContext(), PerfilActivity.class));
     //                    finish();
+                        Log.d("Actualización", "Nuevo valor de Curso: " + Curso);
+                        Log.d("Actualización", "Nuevo valor de Tutor: " + Tutor);
+                        Log.d("Actualización", "Nuevo valor de ID: " + Id);
+
+                        // Actualiza las vistas con los nuevos valores
+                        runOnUiThread(() -> {
+                            edCurso.setText(Curso);
+                            edTutor.setText(Tutor);
+                            edID.setText(Id);
+                            // Otros campos que deseas actualizar
+                        });
+
                         progressDialog.dismiss();
                     },
                     error -> {
@@ -206,7 +210,8 @@
             RequestQueue requestQueue = Volley.newRequestQueue(PerfilActivity.this);
             requestQueue.add(request);
         }
-    
+
+
         private void cerrar_sesion(){
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = preferences.edit();
