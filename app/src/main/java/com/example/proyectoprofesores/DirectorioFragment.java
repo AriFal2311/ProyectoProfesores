@@ -113,6 +113,7 @@ public class DirectorioFragment extends Fragment implements Response.Listener<JS
                         .withNombreAlumno(jsonObject.optString("nombre"))
                         .withNombrePariente(jsonObject.optString("parentesco"))
                         .withNumeroPariente(jsonObject.optString("telefono"))
+                        .withSexo(jsonObject.optString("sexo"))
                         .build();
                 listDirectorio.add(directorio);
             }

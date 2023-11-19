@@ -8,6 +8,16 @@ public class Directorio {
     public String nombrePariente;
     public String numeroPariente;
     public int  imagefondo;
+    public String sexo;
+
+    public int getBackgroundImageResource() {
+        if ("m".equals(sexo)) {
+            return R.drawable.user_image;
+        } else {
+            return R.drawable.boy__1_;
+        }
+    }
+
 
     public static class Builder{
 
@@ -20,6 +30,12 @@ public class Directorio {
             directorio.image = image;
             return this;
         }
+
+        public Builder withSexo(String sexo) {
+            directorio.sexo = sexo;
+            return this;
+        }
+
         public Builder withNombreAlumno(String nombreAlumno){
             directorio.nombreAlumno=nombreAlumno;
             return this;

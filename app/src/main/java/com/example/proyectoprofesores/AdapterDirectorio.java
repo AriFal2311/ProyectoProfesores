@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -34,14 +35,21 @@ public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.Vi
 
         holder.NombrePariente.setText(listDirectorio.get(position).nombrePariente);
         holder.NumeroPariente.setText(listDirectorio.get(position).numeroPariente);
-
+        int textColor=0;
         if (position % 2 == 0) {
             holder.FondoContacto.setImageResource(R.drawable.contact_box);
-            holder.Contacto.setImageResource(R.drawable.boy__1_);
+            textColor = ContextCompat.getColor(context, R.color.black);
         } else {
             holder.FondoContacto.setImageResource(R.drawable.contact_box_azul);
-            holder.Contacto.setImageResource(R.drawable.user_image);
+            textColor = ContextCompat.getColor(context, R.color.colorBlanco);
         }
+
+        Directorio directorio = listDirectorio.get(position);
+        holder.Contacto.setImageResource(directorio.getBackgroundImageResource());
+        holder.NombreAlumno.setTextColor(textColor);
+        holder.NombrePariente.setTextColor(textColor);
+        holder.NumeroPariente.setTextColor(textColor);
+
     }
 
     @Override
@@ -63,4 +71,6 @@ public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.Vi
 
         }
     }
+
+
 }
