@@ -15,11 +15,28 @@ import java.util.ArrayList;
 
 public class AdapterDirectorio extends RecyclerView.Adapter<AdapterDirectorio.ViewHolderDatos>  {
     ArrayList<Directorio> listDirectorio;
+    private ArrayList<Directorio> listDirectorioOriginal;
     Context context;
 
     public AdapterDirectorio(ArrayList<Directorio> listDirectorio, Context context) {
         this.listDirectorio = listDirectorio;
+        this.listDirectorioOriginal = new ArrayList<>(listDirectorio);
         this.context = context;
+    }
+
+    public void filter(String text) {
+        listDirectorio.clear();
+        if (text.isEmpty()) {
+            listDirectorio.addAll(listDirectorioOriginal);
+        } else {
+            text = text.toLowerCase();
+            for (Directorio item : listDirectorioOriginal) {
+                if (item.getNombreAlumno().toLowerCase().contains(text)) {
+                    listDirectorio.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @NonNull

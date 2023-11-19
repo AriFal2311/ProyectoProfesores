@@ -17,6 +17,9 @@ public class Directorio {
             return R.drawable.boy__1_;
         }
     }
+    public String getNombreAlumno() {
+        return nombreAlumno;
+    }
 
 
     public static class Builder{
