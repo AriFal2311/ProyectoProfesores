@@ -3,6 +3,9 @@ package com.example.proyectoprofesores;
 
 import android.os.Bundle;
 
+import java.text.Normalizer;
+import java.util.regex.Pattern;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -159,27 +162,55 @@ public class CoursesFragment extends Fragment implements OnCursoClickListener, R
                 String dia = jsonObject.getString("dia");
 
                 cursodt existingCurso = findCursoByName(nombreCurso);
-                // Crear una ArrayList para los días y agregar el día
-//                ArrayList<String> listDias = new ArrayList<>();
-//                listDias.add(dia);
 
                 if (existingCurso != null) {
                     // Si existe, agregar el día al curso existente
                     existingCurso.getDiasPorCurso().get(nombreCurso).add(dia);
                 } else {
                     // Si no existe, crear un nuevo curso
+                    int fondoResource = getFondoResourceByCurso(nombreCurso);
+                    int logoResource = getLogoResourceByCurso(nombreCurso);
+
                     ArrayList<String> listDias = new ArrayList<>();
                     listDias.add(dia);
-                    listCursos.add(new cursodt(R.drawable.fondo_curso1, R.drawable.logo_math, nombreCurso, nivel, aula, "22", listDias));
+                    listCursos.add(new cursodt(fondoResource, logoResource, nombreCurso, nivel, aula, "22", listDias));
                 }
 
                 // Crear un nuevo objeto cursodt y agregarlo a listCursos
                 //listCursos.add(new cursodt(R.drawable.fondo_curso1, R.drawable.logo_math, nombreCurso, nivel, aula, "22", listDias));
             }
+            selectedFilter = "todos";
+            searchView.setQuery("", false);
+            searchView.clearFocus();
+            adapterCursos filteredAdapter = new adapterCursos(getContext(), listCursos);
+            filteredAdapter.setOnCursoClickListener(this);
+            recy.setAdapter(filteredAdapter);
 
             // Utilizar listCursos según sea necesario en tu aplicación
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    private int getFondoResourceByCurso(String nombreCurso) {
+        // Lógica para asignar un fondo diferente basado en el nombre del curso
+        if (nombreCurso.contains("\u00c1LGEBRA")||nombreCurso.contains("ARITM\u00c9TICA")||nombreCurso.contains("F\u00cdSICA")||nombreCurso.contains("GEOMETR\u00cdA")||nombreCurso.contains("RAZONAMIENTO MATEM\u00c1TICO")) {
+            return R.drawable.fondo_curso1;  // Reemplaza con tu recurso específico
+        } else if (nombreCurso.contains("BIOLOG\u00cdA")||nombreCurso.contains("EMPRENDIMIENTO Y TECNOLOG\u00cdA")||nombreCurso.contains("QU\u00cdMICA")) {
+            return R.drawable.fondo_curso3;  // Reemplaza con tu recurso específico
+        } else {
+            return R.drawable.fondo_curso2;  // Fondo por defecto si no hay coincidencia
+        }
+    }
+
+    private int getLogoResourceByCurso(String nombreCurso) {
+        // Lógica para asignar un logo diferente basado en el nombre del curso
+        if (nombreCurso.contains("\u00c1LGEBRA")||nombreCurso.contains("ARITM\u00c9TICA")||nombreCurso.contains("F\u00cdSICA")||nombreCurso.contains("GEOMETR\u00cdA")||nombreCurso.contains("RAZONAMIENTO MATEM\u00c1TICO")) {
+            return R.drawable.logo_math;  // Reemplaza con tu recurso específico
+        } else if (nombreCurso.contains("BIOLOG\u00cdA")||nombreCurso.contains("EMPRENDIMIENTO Y TECNOLOG\u00cdA")||nombreCurso.contains("QU\u00cdMICA")) {
+            return R.drawable.logo_plant;  // Reemplaza con tu recurso específico
+        } else {
+            return R.drawable.logo_tierra;  // Logo por defecto si no hay coincidencia
         }
     }
 
@@ -205,34 +236,37 @@ public class CoursesFragment extends Fragment implements OnCursoClickListener, R
                 .commit();
     }
 
+    private String quitarTildes(String input) {
+        String normalized = Normalizer.normalize(input, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(normalized).replaceAll("");
+    }
+
     private void filter(String text) {
-        currentSearchText = text;
+        currentSearchText = quitarTildes(text);
         ArrayList<cursodt> filteredList = new ArrayList<>();
 
         for (cursodt curso : listCursos) {
-            if (curso.getNombre().toLowerCase().contains(text.toLowerCase())) {
-                if(selectedFilter.equals("todos")){
+            String nombreCursoLowerCase = quitarTildes(curso.getNombre().toLowerCase());
+
+            if (nombreCursoLowerCase.startsWith(currentSearchText.toLowerCase())) {
+                if (selectedFilter.equals("todos")) {
                     filteredList.add(curso);
-                }else{
-                    //ArrayList<String> diasCurso = curso.getDias();
+                } else {
                     HashMap<String, ArrayList<String>> diasPorCurso = curso.getDiasPorCurso();
                     ArrayList<String> diasCursoLowerCase = new ArrayList<>();
 
                     if (diasPorCurso.containsKey(curso.getNombre())) {
                         ArrayList<String> diasCurso = diasPorCurso.get(curso.getNombre());
                         for (String dia : diasCurso) {
-                            diasCursoLowerCase.add(dia.toLowerCase());
+                            diasCursoLowerCase.add(quitarTildes(dia.toLowerCase()));
                         }
                     }
-//                    for (String dia : diasCurso) {
-//                        diasCursoLowerCase.add(dia.toLowerCase()); // Convertir a minúsculas
-//                    }
 
                     if (diasCursoLowerCase.contains(selectedFilter)) {
                         filteredList.add(curso);
                     }
                 }
-
             }
         }
 
