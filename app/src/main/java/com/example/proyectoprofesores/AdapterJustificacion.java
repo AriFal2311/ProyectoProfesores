@@ -22,7 +22,7 @@ public class AdapterJustificacion extends RecyclerView.Adapter<AdapterJustificac
     }
 
     private String obtenerColorAleatorio() {
-        String[] fondoColor = {"azul", "marron", "rojo", "verde"};
+        String[] fondoColor = {"azul", "blanco"};
         Random random = new Random();
         int indiceColor = random.nextInt(fondoColor.length);
         return fondoColor[indiceColor];
@@ -41,18 +41,12 @@ public class AdapterJustificacion extends RecyclerView.Adapter<AdapterJustificac
         String colorFondo = obtenerColorAleatorio();
         switch (colorFondo){
             case "azul":
-                holder.fondo.setBackgroundResource(R.drawable.justificacion_inicio_azul);
+                holder.fondo.setBackgroundResource(R.drawable.justificacion_fondo2);
+                break;
+            case "blanco":
+                holder.fondo.setBackgroundResource(R.drawable.justificacion_fondo1);
+                break;
 
-                break;
-            case "marron":
-                holder.fondo.setBackgroundResource(R.drawable.justificacion_inicio_marron);
-                break;
-            case "rojo":
-                holder.fondo.setBackgroundResource(R.drawable.justificacion_inicio_rojo);
-                break;
-            case "verde":
-                holder.fondo.setBackgroundResource(R.drawable.justificacion_inicio_verde);
-                break;
         }
         holder.asignarDatos(listDatos.get(position));
     }
