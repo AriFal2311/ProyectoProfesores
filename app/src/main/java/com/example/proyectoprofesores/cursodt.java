@@ -1,6 +1,9 @@
 package com.example.proyectoprofesores;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 public class cursodt {
+    private  int id;
     private int fondo;
     private int icon;
     private String nombre;
@@ -9,21 +12,33 @@ public class cursodt {
 
     private String cantAlum;
 
-    private ArrayList<String> dias;
+    //private ArrayList<String> dias;
 
+    private HashMap<String, ArrayList<String>> diasPorCurso;
 
     public cursodt(){
 
     }
 
-    public cursodt(int fondo, int icon, String nombre, String nivel, String aula, String cantAlum, ArrayList<String> dias) {
+    public cursodt(int id, int fondo, int icon, String nombre, String nivel, String aula, String cantAlum, ArrayList<String> dias) {
+        this.id = id;
         this.fondo = fondo;
         this.icon = icon;
         this.nombre = nombre;
         this.nivel = nivel;
         this.aula = aula;
         this.cantAlum = cantAlum;
-        this.dias = dias;
+        //this.dias = dias;
+        this.diasPorCurso = new HashMap<>();
+        this.diasPorCurso.put(nombre, dias);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getFondo() {
@@ -74,11 +89,17 @@ public class cursodt {
         this.cantAlum = cantAlum;
     }
 
-    public ArrayList<String> getDias() {
-        return dias;
-    }
+//    public ArrayList<String> getDias() {
+//        return dias;
+//    }
 
-    public void setDias(ArrayList<String> dias) {
-        this.dias = dias;
+//    public void setDias(ArrayList<String> dias) {
+//        this.dias = dias;
+//    }
+public HashMap<String, ArrayList<String>> getDiasPorCurso() {
+    return diasPorCurso;
+}
+    public void setDiasPorCurso(HashMap<String, ArrayList<String>> diasPorCurso) {
+        this.diasPorCurso = diasPorCurso;
     }
 }
