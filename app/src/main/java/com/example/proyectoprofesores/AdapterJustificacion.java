@@ -1,6 +1,7 @@
 package com.example.proyectoprofesores;
 
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -35,6 +39,7 @@ public class AdapterJustificacion extends RecyclerView.Adapter<AdapterJustificac
         return new ViewHolderDatos(view);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
 
@@ -42,9 +47,20 @@ public class AdapterJustificacion extends RecyclerView.Adapter<AdapterJustificac
         switch (colorFondo){
             case "azul":
                 holder.fondo.setBackgroundResource(R.drawable.justificacion_fondo2);
+                holder.nombre.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
+                holder.aula.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
+                holder.fecha.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
+                holder.aulaintro.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
+                holder.fechaintro.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.white));
+
                 break;
             case "blanco":
                 holder.fondo.setBackgroundResource(R.drawable.justificacion_fondo1);
+                holder.nombre.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+                holder.aula.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+                holder.fecha.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+                holder.aulaintro.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+                holder.fechaintro.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
                 break;
 
         }
@@ -58,14 +74,19 @@ public class AdapterJustificacion extends RecyclerView.Adapter<AdapterJustificac
 
     public class ViewHolderDatos extends RecyclerView.ViewHolder {
         TextView nombre;
+        TextView aulaintro;
         TextView aula;
+        TextView fechaintro;
         TextView fecha;
         ImageView fondo;
+
 
         public ViewHolderDatos(@NonNull View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.justificacion_nombre);
             aula = itemView.findViewById(R.id.justificacion_aula);
+            aulaintro = itemView.findViewById(R.id.aula);
+            fechaintro= itemView.findViewById(R.id.espec);
             fecha= itemView.findViewById(R.id.justificacion_especificacion);
             fondo = itemView.findViewById(R.id.fondoJustificacion);
         }
