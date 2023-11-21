@@ -163,7 +163,7 @@ public class CoursesFragment extends Fragment implements OnCursoClickListener, R
                 String cant_alumnos = String.valueOf(jsonObject.getInt("cantidad_alumnos"));
                 int idCurso = Integer.parseInt(jsonObject.getString("id_cursos"));
                 cursodt existingCurso = findCursoByAula(aula);
-
+//
 
                 if (existingCurso != null) {
                     // Si existe, agregar el día al curso existente
